@@ -1,0 +1,19 @@
+#pragma once
+#include <stdlib.h>
+#include <stdio.h>
+#include "piles.hpp"
+#include "cards.hpp"
+
+class Game {
+private:
+    CardsManager cardsManager;
+    PilesManager pilesManager;
+
+public:
+    Game() : pilesManager(&cardsManager) {};
+
+    void start();
+    void printBoard();
+    bool getAction();
+    void resetScreen();
+};
