@@ -2,11 +2,12 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include "move.hpp"
 
 std::string getSuitString(Suits suit) {
     switch (suit) {
         case Suits::HEARTS:
-            return "♡";
+            return "♥";
             break;
         case Suits::SPADES:
             return "♠";
@@ -15,9 +16,10 @@ std::string getSuitString(Suits suit) {
             return "♣"; 
             break;
         case Suits::DIAMONDS:
-            return "♢";
+            return "♦";
             break;
     }
+    return "";
 }
 
 // implement constructor for cards
@@ -52,8 +54,34 @@ void Card::printCard() const {
     }
 }
 
+std::vector<std::string> Card::toVec(){
+    std::string black = "\033[30m";
+    std::string white = "\033[37m";
+    std::string pref = (this->color == Colors::BLACK ? white : "\033[31m");
+    std::string suf = "\033[0m";
+    std::vector<std::string> ans = {getSuitString(this->suit)};
+    switch (this->rank) {
+        case Ranks::ACE:
+            ans.push_back("A");
+            break;
+        case Ranks::QUEEN:
+            ans.push_back("Q");
+            break;
+        case Ranks::JACK:
+            ans.push_back("J");
+            break;
+        case Ranks::KING:
+            ans.push_back("K");
+            break;
+        default:
+            ans.push_back(std::to_string(static_cast<int>(this->rank)));
+            break;
+    }
+    ans = {pref + ans[0] + suf, pref + ans[1] + suf};
+    return ans;
+}
+
 CardsManager::CardsManager() {
-    SetConsoleOutputCP(CP_UTF8);
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 13; j++) {
             available_cards.push_back(Card(static_cast<Suits>(i), static_cast<Ranks>(j)));

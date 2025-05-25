@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "piles.hpp"
 #include "cards.hpp"
+#include "move.hpp"
 
 class Game {
 private:
@@ -14,6 +15,8 @@ public:
 
     void start();
     void printBoard();
-    bool getAction();
+    // void testPrintBoard();
+    void getAction();
     void resetScreen();
+    bool checkEnd();
 };

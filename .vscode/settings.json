@@ -55,6 +55,15 @@
         "string_view": "cpp",
         "iostream": "cpp",
         "istream": "cpp",
-        "numbers": "cpp"
+        "numbers": "cpp",
+        "charconv": "cpp",
+        "format": "cpp",
+        "locale": "cpp",
+        "variant": "cpp",
+        "xlocbuf": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp",
+        "codecvt": "cpp"
     }
 }

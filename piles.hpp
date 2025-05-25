@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "cards.hpp"
+#include "move.hpp"
 
 class ReservePile {
 private:
@@ -18,6 +19,17 @@ public:
     std::vector<Card>* getRevealdCards() {
         return &this->revealdCards;
     }
+
+    // Draw Action
+    bool validateDrawAction(DrawAction &action);
+    void performDrawAction(DrawAction &action);
+
+    // New Reserve Action
+    bool performNewReserveAction(NewReserveAction &action);
+
+    // Answer Action;
+    bool validateAnswerAction(AnswerAction &action);
+    void performAnswerAction(AnswerAction &action);
 };
 
 class ResultPile {
@@ -37,6 +49,9 @@ public:
     std::vector<Card>* getCards() {
         return &this->cards;
     }
+
+    bool validateAnswerAction(AnswerAction &action);
+    void performAnswerAction(AnswerAction &action);
 };
 
 class StandardPile {
@@ -56,6 +71,22 @@ public:
     int getRevealdCount(){
         return this->revealdCount;
     }
+
+    // Move Action
+    bool validateMoveTo(MoveAction &action);
+    bool validateMoveFrom(MoveAction &action);
+    void performMoveTo(MoveAction &action);
+    void performMoveFrom(MoveAction &action);
+    // void undoMoveTo(MoveAction &action);
+    // void undoMoveFrom(MoveAction &action);
+
+    // Draw Action
+    bool validateDrawAction(DrawAction &action);
+    void performDrawAction(DrawAction &action);
+
+    // Answer Action
+    bool validateAnswerAction(AnswerAction &action);
+    void performAnswerAction(AnswerAction &action);
 };
 
 class PilesManager {
@@ -67,7 +98,7 @@ private:
 
     std::vector<StandardPile> sPiles;
     std::vector<ResultPile> resPiles;
-    ReservePile reservePiles;
+    ReservePile reservePile;
 
 public:
     PilesManager(CardsManager* cardManager);
@@ -80,7 +111,13 @@ public:
         return &this->resPiles;
     }
 
-    ReservePile* getReservePiles(){
-        return &this->reservePiles;
+    ReservePile* getReservePile(){
+        return &this->reservePile;
     }
+
+    bool makeMoveAction(MoveAction &action);
+    bool makeDrawAction(DrawAction &action);
+    bool makeNewReserveAction(NewReserveAction &action);
+    bool makeAnswerAction(AnswerAction &action);
+    bool checkEnd();
 };

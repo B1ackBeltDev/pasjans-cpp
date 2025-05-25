@@ -7,31 +7,31 @@
 #include <random>
 
 enum class Colors {
-    BLACK,
-    RED,
+    BLACK = 0,
+    RED = 1,
 };
 
 enum class Suits {
-    HEARTS,
-    DIAMONDS,
-    CLUBS,
-    SPADES,
+    HEARTS = 0,
+    DIAMONDS = 1,
+    CLUBS = 2,
+    SPADES = 3,
 };
 
 enum class Ranks {
-    ACE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING,
+    ACE = 0,
+    TWO = 1,
+    THREE = 2,
+    FOUR = 3,
+    FIVE = 4,
+    SIX = 5,
+    SEVEN = 6,
+    EIGHT = 7,
+    NINE = 8,
+    TEN = 9,
+    JACK = 10,
+    QUEEN = 11,
+    KING = 12,
 };
 
 std::string getSuitString(Suits suit);
@@ -44,6 +44,7 @@ private:
 
 public:
     Card(Suits suit, Ranks rank);
+    Card() : color(static_cast<Colors>(-1)), suit(static_cast<Suits>(-1)), rank(static_cast<Ranks>(-1)) {}
 
     Colors getColor() const {
         return color;
@@ -58,6 +59,7 @@ public:
     }
 
     void printCard() const;
+    std::vector<std::string> toVec();
 };
 
 class CardsManager {
@@ -68,7 +70,7 @@ public:
 
     Card drawCard();
 
-    bool isOrdered(const Card& a, const Card& b) const;
-    bool haveSameSuits(const Card& a, const Card&b) const;
+    bool isOrdered(const Card &a, const Card &b) const;
+    bool haveSameSuits(const Card &a, const Card &b) const;
     std::vector<Card> getAllCards();
 };

@@ -1,20 +1,32 @@
-#include "cards.hpp";
+#pragma once
 #include <vector>
 #include <variant>
+#include "cards.hpp"
+
+struct NewReserveAction{
+    std::vector<Card> revealdCards;
+    std::vector<Card> hiddenCards;
+};
 
 struct MoveAction {
+    // bool fromReserve;
     int fromPile;
     int toPile;
     int howManyCards;
+    bool revealdNew;
+    std::vector<Card> cards;
 };
 
 struct DrawAction {
     int toPile;
+    Card card;
 };
 
 struct AnswerAction {
     bool fromReserve;
     int fromPile;
+    bool revealdNew;
+    Card card;
 };
 
 class ActionsManager {
@@ -34,7 +46,4 @@ public:
         actions.push_back(action);
     }
 
-    void performLastAction(){
-        ;
-    }
 };
