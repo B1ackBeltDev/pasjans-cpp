@@ -4,22 +4,33 @@
 #include <windows.h>
 #include "move.hpp"
 
-std::string getSuitString(Suits suit) {
+std::string getSuitString(Suits suit, bool addColor = false) {
+    std::string ans = "";
     switch (suit) {
         case Suits::HEARTS:
-            return "♥";
+            ans = "♥";
             break;
         case Suits::SPADES:
-            return "♠";
+            ans = "♠";
             break;
         case Suits::CLUBS:
-            return "♣"; 
+            ans = "♣"; 
             break;
         case Suits::DIAMONDS:
-            return "♦";
+            ans = "♦";
             break;
     }
-    return "";
+    
+    if(!addColor)
+        return ans;
+
+    std::string black = "\033[30m";
+    std::string white = "\033[37m";
+    std::string red = "\033[31m";
+    std::string pref = ((suit == Suits::HEARTS || suit == Suits::DIAMONDS) ? red : white);
+    std::string suf = "\033[0m";
+
+    return pref + ans + suf;
 }
 
 // implement constructor for cards
@@ -57,7 +68,8 @@ void Card::printCard() const {
 std::vector<std::string> Card::toVec(){
     std::string black = "\033[30m";
     std::string white = "\033[37m";
-    std::string pref = (this->color == Colors::BLACK ? white : "\033[31m");
+    std::string red = "\033[31m";
+    std::string pref = (this->color == Colors::BLACK ? white : red);
     std::string suf = "\033[0m";
     std::vector<std::string> ans = {getSuitString(this->suit)};
     switch (this->rank) {

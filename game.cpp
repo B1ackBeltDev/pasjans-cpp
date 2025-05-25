@@ -133,7 +133,7 @@ void Game::printBoard(){
             inject(card, 0, (i+3)*cardWidth, screen);
             inject({resPiles[i].getCards()->back().toVec()}, 0, 2+(i+3)*cardWidth, screen);
         }
-        inject({{getSuitString(resPiles[i].getSuit())}}, 2, 3+(i+3)*cardWidth, screen);
+        inject({{getSuitString(resPiles[i].getSuit(), true)}}, 2, 3+(i+3)*cardWidth, screen);
     }
 
     // Inject Standard Piles

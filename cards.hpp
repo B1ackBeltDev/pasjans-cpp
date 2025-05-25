@@ -34,7 +34,7 @@ enum class Ranks {
     KING = 12,
 };
 
-std::string getSuitString(Suits suit);
+std::string getSuitString(Suits suit, bool addColor);
 
 class Card {
 private:
