@@ -2,6 +2,7 @@
 #include <vector>
 #include <variant>
 #include "cards.hpp"
+#include "piles.hpp"
 
 struct NewReserveAction{
     std::vector<Card> revealdCards;
@@ -31,9 +32,16 @@ struct AnswerAction {
 
 class ActionsManager {
 private:
-    std::vector<std::variant<MoveAction, DrawAction, AnswerAction>> actions;
+    PilesManager* pilesManager;
+    std::vector<std::variant<NewReserveAction, MoveAction, DrawAction, AnswerAction>> actions;
 
 public: 
+    ActionsManager(PilesManager* pilesManager);
+
+    void addAction(const NewReserveAction& action) {
+        actions.push_back(action);
+    }
+
     void addAction(const MoveAction& action) {
         actions.push_back(action);
     }
@@ -45,5 +53,7 @@ public:
     void addAction(const AnswerAction& action) {
         actions.push_back(action);
     }
+
+    bool undoMove();
 
 };

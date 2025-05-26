@@ -182,7 +182,7 @@ void Game::resetScreen() {
 }
 
 void Game::getAction() {
-    std::cout << "Enter action type (move - 1, new reserve - 2, answer - 3, exit - 4): ";
+    std::cout << "Enter action type (move - 1, new reserve - 2, answer - 3, undo - 4, exit - 5): ";
     int actionType;
     std::cin >> actionType;
 
@@ -229,6 +229,7 @@ void Game::getAction() {
                     // return false;
                     return;
                 }
+                this->actionsManager.addAction(newAction);
             }else{
                 // Get to pile
                 this->resetScreen();
@@ -272,6 +273,8 @@ void Game::getAction() {
                     // return false;
                     return;
                 }
+
+                this->actionsManager.addAction(newAction);
             }
 
             break;
@@ -285,6 +288,7 @@ void Game::getAction() {
                 return;
             }
             // std::cout << "[DEBUG] LOL" << std::endl;
+            this->actionsManager.addAction(newAction);
             
             break;
         }
@@ -321,10 +325,17 @@ void Game::getAction() {
                 // return false;
                 return;
             }
-
+            this->actionsManager.addAction(newAction);
             break;
         }
         case 4: {
+            if(!this->actionsManager.undoMove()){
+                std::cout << "[SYSTEM] Cant undo move!" << std::endl;
+                return;
+            }
+            break;
+        }
+        case 5: {
             this->resetScreen();
 
             std::cout << "Are you sure you want to exit (y/*): ";

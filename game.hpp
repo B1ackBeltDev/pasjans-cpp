@@ -9,9 +9,10 @@ class Game {
 private:
     CardsManager cardsManager;
     PilesManager pilesManager;
+    ActionsManager actionsManager;
 
 public:
-    Game() : pilesManager(&cardsManager) {};
+    Game() : pilesManager(&cardsManager), actionsManager(&pilesManager) {};
 
     void start();
     void printBoard();
