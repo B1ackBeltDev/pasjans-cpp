@@ -53,6 +53,11 @@ bool PilesManager::makeMoveAction(MoveAction &action){
     return true;
 }
 
+void PilesManager::undoAction(MoveAction &action){
+    this->sPiles[action.fromPile-1].undoMoveFrom(action);
+    this->sPiles[action.toPile-1].undoMoveTo(action);
+}
+
 bool StandardPile::validateMoveFrom(MoveAction &action){
     if(action.howManyCards > this->revealdCount)
         return false;
@@ -90,10 +95,24 @@ void StandardPile::performMoveFrom(MoveAction &action){
         this->revealdCount = 1;
 }
 
+void StandardPile::undoMoveFrom(MoveAction &action){
+    for(Card card : action.cards)
+        this->cards.push_back(card);
+    if(action.revealdNew)
+        this->revealdCount--;
+    this->revealdCount += action.howManyCards;
+}
+
 void StandardPile::performMoveTo(MoveAction &action){
     for(int i = 0; i < action.howManyCards; i++)    
         this->cards.push_back(action.cards[i]);
     this->revealdCount += action.howManyCards;
+}
+
+void StandardPile::undoMoveTo(MoveAction &action){
+    this->revealdCount -= action.howManyCards;
+    for(int i = 0; i < action.howManyCards; i++)
+        this->cards.pop_back();
 }
 
 bool ReservePile::validateDrawAction(DrawAction &action){

@@ -13,17 +13,18 @@ bool ActionsManager::undoMove(){
 
     std::variant<NewReserveAction, MoveAction, DrawAction, AnswerAction> action = this->actions.back();
     std::visit([](auto&& act) {
-        using T = std::decay_t<decltype(act)>;
-        if constexpr (std::is_same_v<T, NewReserveAction>) {
-            // NewReserve Action
+        this->pilesManager->undoAction(act);
+        // using T = std::decay_t<decltype(act)>;
+        // if constexpr (std::is_same_v<T, NewReserveAction>) {
+        //     // NewReserve Action
             
-        }else if constexpr (std::is_same_v<T, MoveAction>) {
-            // MoveAction
-        }else if constexpr (std::is_same_v<T, DrawAction>) {
-            // DrawAction
-        }else if constexpr (std::is_same_v<T, AnswerAction>) {
-            // AnswerAction
-        }
+        // }else if constexpr (std::is_same_v<T, MoveAction>) {
+        //     // MoveAction
+        // }else if constexpr (std::is_same_v<T, DrawAction>) {
+        //     // DrawAction
+        // }else if constexpr (std::is_same_v<T, AnswerAction>) {
+        //     // AnswerAction
+        // }
     }, action);
 
     this->actions.pop_back();

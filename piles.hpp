@@ -77,8 +77,8 @@ public:
     bool validateMoveFrom(MoveAction &action);
     void performMoveTo(MoveAction &action);
     void performMoveFrom(MoveAction &action);
-    // void undoMoveTo(MoveAction &action);
-    // void undoMoveFrom(MoveAction &action);
+    void undoMoveTo(MoveAction &action);
+    void undoMoveFrom(MoveAction &action);
 
     // Draw Action
     bool validateDrawAction(DrawAction &action);
@@ -120,4 +120,9 @@ public:
     bool makeNewReserveAction(NewReserveAction &action);
     bool makeAnswerAction(AnswerAction &action);
     bool checkEnd();
+
+    void undoAction(MoveAction &action); // DONE
+    void undoAction(DrawAction &action);
+    void undoAction(NewReserveAction &action);
+    void undoAction(AnswerAction &action);
 };
